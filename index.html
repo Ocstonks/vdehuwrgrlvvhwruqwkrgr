@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensagem Corrompida</title>
+    <style>
+        body {
+            background-color: black;
+            color: #ff3333; /* Vermelho */
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+            margin-top: 50px;
+            position: relative; /* Para que a imagem possa ser posicionada em relação ao corpo */
+            overflow: hidden; /* Impede a barra de rolagem */
+        }
+
+        .corrompido {
+            animation: flicker 0.2s infinite alternate;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        #translation {
+            display: none; /* Oculta a tradução inicialmente */
+        }
+
+        #corruptedImage {
+            display: none; /* Oculta a imagem inicialmente */
+            width: 300px; /* Ajuste o tamanho da imagem conforme necessário */
+            position: absolute; /* Permite posicionar a imagem em qualquer lugar */
+            z-index: -1; /* Coloca a imagem atrás do texto */
+            transition: opacity 0.5s; /* Transição suave ao mostrar/ocultar a imagem */
+        }
+    </style>
+</head>
+<body>
+    <h1 class="corrompido" id="binaryMessage">
+        01000100 01101001 01101111 00100000 01100011 01101001 00100000 01101000 01100001 00100000 01100001 01100010 01100010 01100001 01101110 01100101 01100100 01101111 01101110 01100001 01110100 01101111 00101100 00100000 01101100 01100001 00100000 01101110 01101111 01110011 01110100 01110010 01100001 00100000 01110110 01101001 01110100 01100001 00100000 11000011 10100101 00100000 01110011 01110100 01100001 01110100 01100001 00100000 01110000 01110010 01100101 01110011 01100001 00100000 01101110 01100101 01101100 01101100 01100101 00100000 01110011 01110101 01100101 00100000 01101101 01100001 01101110 01101001 00101110 <br>
+        <span id="translation">Dio ci ha abbandonato, la nostra vita è stata presa nelle sue mani. NEGO LA TUA ESISTENZA, MI UNISCO AL CAOS PERCHÉ LA TUA MORTE SIA LUNGA E DOLOROSA, FIGLIO DI PUTTANA, GLI UOMINI CHE TI HANNO SOGNATO. POSSA LA TUA CARNE GONFIARSI E IL TUO SANGUE RIBOLLIRE.</span>
+    </h1>
+    
+    <img id="corruptedImage" src="https://i.imgur.com/Z59piie.png" alt="Imagem Corrompida">
+
+    <script>
+        // Tempo para cada mensagem e imagem (em milissegundos)
+        const intervalTime = 5000; // 5 segundos
+
+        // Função para alternar a mensagem e a imagem
+        function toggleDisplay() {
+            const binaryMessage = document.getElementById("binaryMessage");
+            const translation = document.getElementById("translation");
+            const corruptedImage = document.getElementById("corruptedImage");
+            
+            if (binaryMessage.style.display === "none") {
+                binaryMessage.style.display = "block";
+                translation.style.display = "none";
+            } else {
+                binaryMessage.style.display = "none";
+                translation.style.display = "block";
+            }
+        }
+
+        // Função para exibir a imagem em um local aleatório
+        function showRandomImage() {
+            const corruptedImage = document.getElementById("corruptedImage");
+
+            // Gera coordenadas aleatórias
+            const x = Math.random() * (window.innerWidth - 300); // Largura da janela - largura da imagem
+            const y = Math.random() * (window.innerHeight - 300); // Altura da janela - altura da imagem
+            
+            // Aplica as coordenadas à imagem
+            corruptedImage.style.left = `${x}px`;
+            corruptedImage.style.top = `${y}px`;
+            corruptedImage.style.display = "block"; // Mostra a imagem
+        }
+
+        // Função para ocultar a imagem
+        function hideImage() {
+            const corruptedImage = document.getElementById("corruptedImage");
+            corruptedImage.style.display = "none"; // Oculta a imagem
+        }
+
+        // Inicia a alternância das mensagens e imagens
+        setInterval(() => {
+            toggleDisplay(); // Alterna entre a mensagem e a tradução
+            hideImage(); // Oculta a imagem
+            showRandomImage(); // Mostra a imagem em posição aleatória
+        }, intervalTime);
+    </script>
+</body>
+</html>
